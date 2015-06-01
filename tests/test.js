@@ -14,3 +14,10 @@ describe('Piece', function(){
     });
   });
 });
+
+// pieces need to be drawn
+// pieces need to know about neighbors???
+// game needs to toggle up to five squares at a time
+// if all pieces are unlit the game ends
+// test how long a user has been playing
+// test how many turns a player has taken
