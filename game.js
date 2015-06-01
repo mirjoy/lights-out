@@ -2,25 +2,34 @@ var Game = function(canvasId){
   var canvas = document.getElementById(canvasId);
   var context = canvas.getContext('2d');
   drawBoard(context);
+  createPieces(context);
 
-  var Piece = function(){
-    this.state = 'lit';
-
-
-  }
 };
 
-Piece.prototype = {
-  state: 'lit',
-  coordinates: [x,y],
-  draw: function(state, coordinates, context){
-    context.beginPath();
-    context.fillStyle = '#424';
-    context.arc(coordinates[0], coordinates[1], 50, 0, 2*Math.PI, false);
-    context.fill();
-    context.closePath();
-  }
+var Piece = function(){
+
 }
+
+Piece.prototype = function(coordinates, context){
+  context.beginPath();
+  context.fillStyle = '#424';
+  context.arc(coordinates[x], coordinates[y], 50, 0, 2*Math.PI, false);
+  context.fill();
+  context.closePath();
+}
+
+var createPieces = function(context){
+
+    var pieces = [];
+
+    for (var i = 0; i < 24; i++) {
+      var x = 80 ;
+      var y = 80 ;
+      pieces.push(new Piece({ x: x, y: y }, context));
+    }
+
+    return pieces;
+  };
 
 var drawBoard = function(context){
   context.beginPath();
