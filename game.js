@@ -7,7 +7,7 @@ var Game = function(canvasId){
 };
 
 var Piece = function(){
-
+  this.state = 'lit';
 }
 
 Piece.prototype = function(coordinates, context){
@@ -18,8 +18,16 @@ Piece.prototype = function(coordinates, context){
   context.closePath();
 }
 
-var createPieces = function(context){
+Piece.prototype.toggleState = function(){
+  if (this.state === 'lit'){
+    return this.state = 'unlit';
+  }
+  else {
+    return this.state = 'lit';
+  }
+}
 
+var createPieces = function(context){
     var pieces = [];
 
     for (var i = 0; i < 24; i++) {
