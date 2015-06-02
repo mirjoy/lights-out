@@ -30,10 +30,10 @@ var createPieces = function(context){
     var pieces = [];
 
     for (var i = 0; i < 5; i++) {
-        var x = 80 + (i % 5) * 80;
+        var x = 80 + (i * 80);
 
       for (var j = 0; j < 5; j++) {
-        var y = 80 + (j % 5) * 80;
+        var y = 80 + (j * 80);
         pieces.push(new Piece({ x: x, y: y }, context));
       }
     }

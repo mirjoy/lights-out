@@ -22,19 +22,23 @@ describe('Piece', function(){
 
 describe('Game', function(){
   it('should know how many turns have been played', function(){
-    var game = new Game('start');
+    var game = new Game('gameBoard');
     chai.assert.equal(game.numberOfPlays, 0)
   });
 
   it('should know how long a user has been playing', function(){
-    var game = new Game('start');
+    var game = new Game('gameBoard');
     // need to set 200 ms delay?
     chai.assert.equal(game.timePlayed, 200)
   });
 
   it('should know if the game is over', function(){
-    var game = new Game('start')
+    var game = new Game('gameBoard')
     chai.assert.equal(game.isWon(), false);
+  });
+
+  it('should have 25 pieces', function(){
+
   });
 });
 // pieces need to be drawn
