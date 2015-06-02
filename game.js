@@ -1,3 +1,5 @@
+require("./style.css");
+
 var Game = function(canvasId){
   var canvas = document.getElementById(canvasId);
   var context = canvas.getContext('2d');
@@ -6,14 +8,13 @@ var Game = function(canvasId){
 
 };
 
-var Piece = function(){
+var Piece = function(coordinates, context){
   this.state = 'lit';
-}
-
-Piece.prototype = function(coordinates, context){
+  this.x = coordinates['x'];
+  this.y = coordinates['y'];
   context.beginPath();
   context.fillStyle = '#424';
-  context.arc(coordinates[x], coordinates[y], 50, 0, 2*Math.PI, false);
+  context.arc(coordinates['x'] - 20, coordinates['y'] - 20, 30, 0, 2*Math.PI, false);
   context.fill();
   context.closePath();
 }
@@ -30,10 +31,13 @@ Piece.prototype.toggleState = function(){
 var createPieces = function(context){
     var pieces = [];
 
-    for (var i = 0; i < 24; i++) {
-      var x = 80 ;
-      var y = 80 ;
-      pieces.push(new Piece({ x: x, y: y }, context));
+    for (var i = 0; i < 5; i++) {
+        var x = 80 + (i * 80);
+
+      for (var j = 0; j < 5; j++) {
+        var y = 80 + (j * 80);
+        pieces.push(new Piece({ x: x, y: y }, context));
+      }
     }
 
     return pieces;

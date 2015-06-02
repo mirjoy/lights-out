@@ -12,6 +12,11 @@ describe('Piece', function(){
       piece1.toggleState()
       chai.assert.equal('lit', piece1.state);
     });
+
+    it('should know its neighbors', function(){
+      var piece1 = new Piece();
+      chai.assert.equal(piece1.findNeighbors.length, 3);
+    });
   });
   describe('#drawSelf()', function(){
 
@@ -52,6 +57,11 @@ describe('Game', function(){
       }
     chai.assert(true === game.isOver?(), 'game should be over');
     });
+
+    xit('should know if the game is over', function(){
+      var game = new Game('gameBoard')
+      chai.assert.equal(game.isWon(), false);
+    });
   });
 
   describe('#turnNumber()', function(){
@@ -62,6 +72,11 @@ describe('Game', function(){
       }
       chai.assert.equal(5, game.turnNumber);
     });
+
+    xit('should know how many turns have been played', function(){
+      var game = new Game('gameBoard');
+      chai.assert.equal(game.numberOfPlays, 0)
+    });
   });
 
   describe('#currentTime()', function(){
@@ -70,10 +85,14 @@ describe('Game', function(){
       game.startTime = moment.duration(15, 'm');
       chai.assert.equal('15 minutes, 0 seconds', game.currentTime);
     });
+
+    it('should know how long a user has been playing', function(){
+      var game = new Game('gameBoard');
+      // need to set 200 ms delay?
+      chai.assert.equal(game.timePlayed, 200)
+    });
   });
 });
-
-
 // pieces need to be drawn
 // pieces need to know about neighbors???
 // game needs to toggle up to five squares at a time
