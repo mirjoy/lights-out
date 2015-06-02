@@ -34,6 +34,7 @@ describe('Game', function(){
 
   it('should know if the game is over', function(){
     var game = new Game('start')
+    chai.assert.equal(game.isWon(), false);
   });
 });
 // pieces need to be drawn
