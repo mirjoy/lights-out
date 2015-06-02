@@ -1,6 +1,6 @@
 describe('Piece', function(){
   describe('#toggleState()', function(){
-    xit('should return change a lit piece to unlit', function(){
+    it('should return change a lit piece to unlit', function(){
       var piece1 = new Piece({state: 'lit'});
       piece1.toggleState();
       chai.assert.equal('unlit', piece1.state);
@@ -12,9 +12,35 @@ describe('Piece', function(){
       piece1.toggleState();
       chai.assert.equal('lit', piece1.state);
     });
+
+    it('should know its neighbors', function(){
+      var piece1 = new Piece();
+      chai.assert.equal(piece1.findNeighbors.length, 3);
+    });
   });
 });
 
+describe('Game', function(){
+  it('should know how many turns have been played', function(){
+    var game = new Game('gameBoard');
+    chai.assert.equal(game.numberOfPlays, 0)
+  });
+
+  it('should know how long a user has been playing', function(){
+    var game = new Game('gameBoard');
+    // need to set 200 ms delay?
+    chai.assert.equal(game.timePlayed, 200)
+  });
+
+  it('should know if the game is over', function(){
+    var game = new Game('gameBoard')
+    chai.assert.equal(game.isWon(), false);
+  });
+
+  it('should have 25 pieces', function(){
+
+  });
+});
 // pieces need to be drawn
 // pieces need to know about neighbors???
 // game needs to toggle up to five squares at a time
