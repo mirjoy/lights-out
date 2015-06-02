@@ -29,11 +29,12 @@ Piece.prototype.toggleState = function(){
 var createPieces = function(context){
     var pieces = [];
 
-    for (var i = 0; i < 24; i++) {
-      var x = 80 ;
-      var y = 80 ;
+    for (var i = 1; i < 26; i++) {
+      var x = 80 + (i % 4) * 80;
+      var y = 80 + (i % 5) * 80;
       pieces.push(new Piece({ x: x, y: y }, context));
     }
+          debugger;
 
     return pieces;
   };
