@@ -1,0 +1,31 @@
+{
+  "name": "lights-out",
+  "version": "1.0.0",
+  "description": "sweet game",
+  "main": "bundle.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "css-loader": "^0.14.4",
+    "style-loader": "^0.12.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "chai": "^2.3.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "webpack ./game.js bundle.js && webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mirjoy/lights-out.git"
+  },
+  "author": "dj greenfield & miriam moser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirjoy/lights-out/issues"
+  },
+  "homepage": "https://github.com/mirjoy/lights-out"
+}
