@@ -4,8 +4,7 @@ var Game = function(canvasId){
   var canvas = document.getElementById(canvasId);
   var context = canvas.getContext('2d');
   drawBoard(context);
-  createPieces(context);
-
+  this.pieces = createPieces(context);
 };
 
 var Piece = function(coordinates, context){

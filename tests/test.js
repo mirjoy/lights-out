@@ -12,14 +12,8 @@ describe('Piece', function(){
       piece1.toggleState()
       chai.assert.equal('lit', piece1.state);
     });
-
-    it('should know its neighbors', function(){
-      var piece1 = new Piece();
-      chai.assert.equal(piece1.findNeighbors.length, 3);
-    });
   });
   describe('#drawSelf()', function(){
-
     xit('should draw on the canvas', function(){
       var piece1 = new Piece();
       chai.assert.ok(piece1.drawSelf([100,100], null))
@@ -28,10 +22,22 @@ describe('Piece', function(){
 });
 
 describe('Game', function(){
+  describe('#createPieces()', function(){
+    xit('should create 25 pieces on the canvas')
+    //canvas stub piece creation
+    //assert pieces.length === 25
+  })
+  describe('#pieceNeighbors()', function(){
+    xit('should determine if a Piece has neighbors')
+    //canvas stub piece creation
+    //game.pieceNeighbors(pieces[1])
+    //should be piece[2], piece[6]
+  })
   describe('#togglePieceState()', function(){
     xit('should toggle a piece and each orthogonal piece', function(){
       var game = new Game();
       var pieces = []
+      //canvas stubbing here
       for(var i = 0; i < 25; i++){
         pieces.push(new Piece({state: 'lit', coordinates: [(1 + i % 5)]}));
         //idk something about assigning coords
@@ -39,63 +45,53 @@ describe('Game', function(){
     game.togglePieceState(pieces[7])
       affectedPieces = [pieces[2], pieces[6], pieces[7], pieces[8], pieces[12]]
       nonAffectedPieces = [pieces[1], pieces[5], pieces[15]]
-      for (var  = 0, len = affectedPieces.length;  < len; ++) {
+      for (var i = 0, len = affectedPieces.length; i < len; i++) {
         chai.assert.equal('unlit', affectedPieces[i].state);
       }
-    for (var  = 0, len = nonAffectedPieces.length;  < len; ++) {
+    for (var i = 0, len = nonAffectedPieces.length; i < len; i++) {
       chai.assert.equal('lit', nonAffectedPieces[i].state);
     }
     });
   });
 
-  describe('#isOver?()', function(){
+  describe('#isWon()', function(){
     xit('should determine when the game is finished', function(){
       var game = new Game();
       var pieces = []
       for(var i = 0; i < 25; i++){
         pieces.push(new Piece({state: 'unlit'}));
       }
-    chai.assert(true === game.isOver?(), 'game should be over');
+    chai.assert.equal(game.isWon, true);
     });
 
-    xit('should know if the game is over', function(){
+    xit('should know when game is not over', function(){
       var game = new Game('gameBoard')
-      chai.assert.equal(game.isWon(), false);
+      chai.assert.equal(game.isWon, false);
     });
   });
 
-  describe('#turnNumber()', function(){
-    xit('should keep count of how many turns have passed', function(){
-      var game = new Game();
-      for (var i = 0; i < 5; i++) {
-        game.turnOver;
-      }
-      chai.assert.equal(5, game.turnNumber);
-    });
-
-    xit('should know how many turns have been played', function(){
+  describe('#numberOfPlays()', function(){
+    xit('should start with zero plays', function(){
       var game = new Game('gameBoard');
       chai.assert.equal(game.numberOfPlays, 0)
+    });
+
+    xit('should keep count of how many plays have occured', function(){
+      var game = new Game();
+      for (var i = 0; i < 5; i++) {
+        game.togglePieceState();
+      }
+      chai.assert.equal(game.numberOfPlays, 5);
     });
   });
 
   describe('#currentTime()', function(){
-    xit('should keep track of how long the game has been running', function(){
-      var game = new Game();
-      game.startTime = moment.duration(15, 'm');
-      chai.assert.equal('15 minutes, 0 seconds', game.currentTime);
-    });
-
-    it('should know how long a user has been playing', function(){
+    xit('should know how long a user has been playing', function(){
+      // explore moment.js
       var game = new Game('gameBoard');
+      game.begin();
       // need to set 200 ms delay?
       chai.assert.equal(game.timePlayed, 200)
     });
   });
 });
-// pieces need to be drawn
-// pieces need to know about neighbors???
-// game needs to toggle up to five squares at a time
-// if all pieces are unlit the game ends
-// test how long a user has been playing
-// test how many turns a player has taken
