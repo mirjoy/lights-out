@@ -12,11 +12,11 @@ describe('Piece', function(){
       piece1.toggleState();
       chai.assert.equal('lit', piece1.state);
     });
-  });
 
-  it('should know its neighbors', function(){
-    var piece1 = new Piece();
-    piece1.neighbors = []
+    it('should know its neighbors', function(){
+      var piece1 = new Piece();
+      chai.assert.equal(piece1.neighbors, [piece2, piece6, piece7]);
+    });
   });
 });
 
