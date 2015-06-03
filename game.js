@@ -4,9 +4,14 @@ var Game = function(canvasId){
 };
 
 Game.prototype.init = function () {
+  this.render();
+}
+
+Game.prototype.render = function() {
+  var game = this;
   this.pieces.forEach(function(piece) {
-    this.renderPiece(piece);
-  }.bind(this))
+     game.renderPiece(piece);
+  });
 }
 
 Game.prototype.renderPiece = function(piece) {
