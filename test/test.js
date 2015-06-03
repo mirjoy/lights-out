@@ -37,9 +37,26 @@ describe('Game', function(){
     chai.assert.equal(game.isWon(), false);
   });
 
-  it('should have 25 pieces', function(){
-
-  });
+  describe('#togglePieceState()', function(){
+     xit('should toggle a piece and each orthogonal piece', function(){
+       var game = new Game();
+       var pieces = []
+       //canvas stubbing here
+       for(var i = 0; i < 25; i++){
+         pieces.push(new Piece({state: 'lit', coordinates: [(1 + i % 5)]}));
+         //idk something about assigning coords
+       }
+     game.togglePieceState(pieces[7])
+       affectedPieces = [pieces[2], pieces[6], pieces[7], pieces[8], pieces[12]]
+       nonAffectedPieces = [pieces[1], pieces[5], pieces[15]]
+       for (var i = 0, len = affectedPieces.length; i < len; i++) {
+         chai.assert.equal('unlit', affectedPieces[i].state);
+       }
+     for (var i = 0, len = nonAffectedPieces.length; i < len; i++) {
+       chai.assert.equal('lit', nonAffectedPieces[i].state);
+      }
+      });
+    });
 });
 // pieces need to be drawn
 // pieces need to know about neighbors???
