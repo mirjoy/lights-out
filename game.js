@@ -1,22 +1,66 @@
-require("./style.css");
-
 var Game = function(canvasId){
-  var canvas = document.getElementById(canvasId);
-  var context = canvas.getContext('2d');
-  drawBoard(context);
-  this.pieces = createPieces(context);
+  this.canvas  = document.getElementById(canvasId);
+  this.context = this.canvas.getContext('2d');
+  this.pieces  = createPieces(this.context);
 };
+
+Game.prototype.init = function () {
+  this.bindClickHandler();
+  this.render();
+}
+
+Game.prototype.bindClickHandler = function() {
+  var game = this;
+  this.canvas.addEventListener("click", function(e) {
+    var canvasLeft = game.canvas.offsetLeft;
+    var canvasTop = game.canvas.offsetTop;
+    var relLeft = e.pageX - canvasLeft;
+    var relTop = e.pageY - canvasTop;
+    console.log("left ", canvasLeft, " top ", canvasTop)
+    console.log("pleft ", e.pageX, " ptop ", e.pageY)
+    console.log("rel left ", relLeft, " rel top ", relTop)
+    // how do we find the appropriate piece located at
+    // relLeft, relTop
+    console.log(e);
+  });
+}
+
+Game.prototype.locatePiece = function(x,y) {
+// var y = mouseY - circleY;
+// var x = mouseX - circleX;
+// var dist = Math.sqrt(y*y + x*x);
+
+// if (dist < circleRadius) {
+//   //go to google
+// }
+}
+
+Game.prototype.render = function() {
+  var game = this;
+  this.pieces.forEach(function(piece) {
+     game.renderPiece(piece);
+  });
+}
+
+Game.prototype.renderPiece = function(piece) {
+  this.context.beginPath();
+  this.context.fillStyle = '#000';
+  this.context.arc(piece.x, piece.y, 30, 0, 2*Math.PI, false);
+  this.context.fill();
+  this.context.closePath();
+
+  // this.context.rect(piece.x,piece.y,80,80);
+  // this.context.stroke();
+}
 
 var Piece = function(coordinates, context){
   this.state = 'lit';
   this.x = coordinates['x'];
   this.y = coordinates['y'];
-  context.beginPath();
-  context.fillStyle = '#424';
-  context.arc(coordinates['x'] - 20, coordinates['y'] - 20, 30, 0, 2*Math.PI, false);
-  context.fill();
-  context.closePath();
+  this.centerX = this.x - 40;
+  this.centerY = this.y - 40;
 }
+
 
 Piece.prototype.toggleState = function(){
   if (this.state === 'lit'){
@@ -28,46 +72,21 @@ Piece.prototype.toggleState = function(){
 }
 
 var createPieces = function(context){
-    var pieces = [];
-
-    for (var i = 0; i < 5; i++) {
-        var x = 80 + (i * 80);
-
-      for (var j = 0; j < 5; j++) {
-        var y = 80 + (j * 80);
-        pieces.push(new Piece({ x: x, y: y }, context));
-      }
-    }
-
-    return pieces;
-  };
-
-var drawBoard = function(context){
-  context.beginPath();
-  context.moveTo(20, 420);
-  context.lineTo(20, 20);
-  context.lineTo(420, 20);
-
-  var x = 20;
-  var y = 20;
+  var pieces = [];
 
   for (var i = 0; i < 5; i++) {
-    verticalOffset = i * 80;
-    for (var j = 1; j < 6; j++) {
-      y += (80 * j);
-      context.moveTo(x, y);
-      x += (80 + verticalOffset);
-      context.lineTo(x, y);
-      y -= 80;
-      context.lineTo(x, y);
-      x = 20;
-      y = 20;
+    var x = 80 + (i * 80);
+
+    for (var j = 0; j < 5; j++) {
+      var y = 80 + (j * 80);
+      pieces.push(new Piece({ x: x, y: y }, context));
     }
   }
-  context.stroke();
+
+  return pieces;
 };
 
-
- window.onload = function(){
-    new Game("gameBoard");
-  };
+window.onload = function(){
+  var game = new Game("gameBoard");
+  game.init();
+};
