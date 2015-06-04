@@ -7,8 +7,7 @@ describe('Piece', function(){
     });
 
     it('should return change an unlit piece to lit', function(){
-      var piece1 = new Piece();
-      piece1.state = 'unlit'
+      var piece1 = new Piece({state: 'unlit'});
       piece1.toggleState();
       chai.assert.equal('lit', piece1.state);
     });
