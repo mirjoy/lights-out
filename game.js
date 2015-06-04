@@ -2,7 +2,9 @@ var Game = function(canvasId){
   this.canvas  = document.getElementById(canvasId);
   this.context = this.canvas.getContext('2d');
   this.pieces  = createPieces(this.context);
-  this.pieces[Math.floor(Math.random()*this.pieces.length)].toggleState();
+  this.numberOfPlays = 0
+    this.timer = 0
+    this.pieces[Math.floor(Math.random()*this.pieces.length)].toggleState();
 };
 
 Game.prototype.init = function () {
@@ -19,8 +21,8 @@ Game.prototype.bindClickHandler = function() {
     var relTop = (e.pageY - canvasTop) - 40;
     var piece = game.locatePiece(relLeft, relTop)
     piece.toggleState();
-    game.findNeighbors(piece);
-    game.render();
+  game.findNeighbors(piece);
+  game.render();
   });
 }
 
@@ -29,12 +31,22 @@ Game.prototype.locatePiece = function(x,y){
 
   this.pieces.forEach(function(piece){
     if ((piece.centerX - 50 < x && x < piece.centerX + 50) &&
-        (piece.centerY - 50 < y && y < piece.centerY + 50)) {
+      (piece.centerY - 50 < y && y < piece.centerY + 50)) {
       foundPiece = piece;
+      this.numberOfPlays++
     }
   });
 
   return foundPiece;
+}
+
+Game.prototype.isWon = function(){
+  var ended = true
+    this.pieces.forEach(function(piece){
+      if(piece.state === "lit")
+      ended = false
+    })
+  return ended
 }
 
 Game.prototype.findNeighbors = function(clickedPiece){
@@ -43,20 +55,20 @@ Game.prototype.findNeighbors = function(clickedPiece){
   this.pieces.forEach(function(piece){
 
     if (((clickedPiece.x + 80 === piece.x || clickedPiece.x - 80 === piece.x) && clickedPiece.y === piece.y) ||
-        ((clickedPiece.y + 80 === piece.y || clickedPiece.y - 80 === piece.y) && clickedPiece.x === piece.x)) {
+      ((clickedPiece.y + 80 === piece.y || clickedPiece.y - 80 === piece.y) && clickedPiece.x === piece.x)) {
       neighbors.push(piece);
     }
   });
 
- neighbors.forEach(function(piece){
-  return piece.toggleState();
- });
+  neighbors.forEach(function(piece){
+    return piece.toggleState();
+  });
 }
 
 Game.prototype.render = function() {
   var game = this;
   this.pieces.forEach(function(piece) {
-     game.renderPiece(piece);
+    game.renderPiece(piece);
   });
 }
 
