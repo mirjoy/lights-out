@@ -21,13 +21,6 @@ Game.prototype.bindClickHandler = function() {
     piece.toggleState();
     game.findNeighbors(piece);
     game.render();
-
-    console.log("left ", canvasLeft, " top ", canvasTop)
-    console.log("pleft ", e.pageX, " ptop ", e.pageY)
-    console.log("rel left ", relLeft, " rel top ", relTop)
-    console.log(e);
-    console.log(piece);
-    console.log(piece.state);
   });
 }
 
