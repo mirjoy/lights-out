@@ -43,8 +43,9 @@ Game.prototype.locatePiece = function(x,y){
 Game.prototype.isWon = function(){
   var ended = true
     this.pieces.forEach(function(piece){
-      if(piece.state === "lit")
-      ended = false
+      if(piece.state === "lit"){
+        ended = false
+      }
     })
   return ended
 }
