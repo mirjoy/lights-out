@@ -15,19 +15,18 @@ Game.prototype.bindClickHandler = function() {
   this.canvas.addEventListener("click", function(e) {
     var canvasLeft = game.canvas.offsetLeft;
     var canvasTop = game.canvas.offsetTop;
-    var relLeft = e.pageX - canvasLeft;
-    var relTop = e.pageY - canvasTop;
+    var relLeft = (e.pageX - canvasLeft) - 40;
+    var relTop = (e.pageY - canvasTop) - 40;
     var piece = game.locatePiece(relLeft, relTop).toggleState();
     game.render();
 
     console.log("left ", canvasLeft, " top ", canvasTop)
     console.log("pleft ", e.pageX, " ptop ", e.pageY)
     console.log("rel left ", relLeft, " rel top ", relTop)
-    // how do we find the appropriate piece located at
-    // relLeft, relTop
 
     console.log(e);
-    console.log(piece, piece.state);
+    console.log(piece);
+    console.log(piece.state);
   });
 }
 
