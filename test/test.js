@@ -55,9 +55,21 @@ describe('Game', function(){
     chai.assert.equal(game.timePlayed, 200)
   });
 
+  it('should keep a timer of how many seconds have passed', function(){
+    var game = new Game('gameBoard');
+    setTimeout(function(){}, 2000);
+    // need to set 200 ms delay?
+    chai.assert.equal(game.timer, 2)
+  });
+
   it('should know if the game is over', function(){
     var game = new Game('gameBoard')
+    var game2 = new Game('gameBoard');
+    game2.pieces.forEach(function(piece){
+      piece.state = "unlit";
+    });
     chai.assert.equal(game.isWon(), false);
+    chai.assert.equal(game2.isWon(), true);
   });
 
   describe('#togglePieceState()', function(){
