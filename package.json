@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "sweet game",
   "main": "bundle.js",
+  "engines": {
+    "node": "0.12.2"
+  }
   "directories": {
     "test": "tests"
   },
