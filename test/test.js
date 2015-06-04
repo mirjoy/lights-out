@@ -1,26 +1,49 @@
 describe('Piece', function(){
   describe('#toggleState()', function(){
     it('should return change a lit piece to unlit', function(){
-      var piece1 = new Piece({state: 'lit'});
+      var piece1 = new Piece({x:1, y:1});
       piece1.toggleState();
       chai.assert.equal('unlit', piece1.state);
     });
 
     it('should return change an unlit piece to lit', function(){
-      var piece1 = new Piece();
-      piece1.state = 'unlit'
+      var piece1 = new Piece({x:1, y:1}, 'unlit');
       piece1.toggleState();
       chai.assert.equal('lit', piece1.state);
     });
 
-    it('should know its neighbors', function(){
-      var piece1 = new Piece();
-      chai.assert.equal(piece1.findNeighbors.length, 3);
+    xit('should change state when clicked', function(){
+      var piece1 = new Piece({x:1, y:1}, 'unlit');
+      piece1.trigger('click');
+      chai.assert.equal('lit', piece1.state);
     });
   });
 });
 
 describe('Game', function(){
+ it('should start with one piece lit', function(){
+    var game = new Game('gameBoard');    // var litPieces = [];
+    var litPieces = []
+    game.pieces.forEach(findLitPieces);
+    function findLitPieces(piece){
+      if (piece.state === 'lit') {
+        litPieces.push(piece);
+      }
+    }
+
+  xit('should change the state of neighboring pieces when clicked', function(){
+    var game = new Game('gameBoard');
+    var piece = game.pieces[0]
+  });
+
+    chai.assert.equal(litPieces.length, 1)
+  });
+
+  it('should know related pieces', function(){
+    var piece1 = new Piece();
+    chai.assert.equal(piece1.findNeighbors.length, 3);
+  });
+
   it('should know how many turns have been played', function(){
     var game = new Game('gameBoard');
     chai.assert.equal(game.numberOfPlays, 0)

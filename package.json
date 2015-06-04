@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "start": "webpack ./game.js bundle.js && webpack-dev-server"
+    "start": "rm bundle.js && webpack ./game.js bundle.js && webpack-dev-server"
   },
   "repository": {
     "type": "git",
