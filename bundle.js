@@ -56,6 +56,7 @@
 	  this.canvas  = document.getElementById(canvasId);
 	  this.context = this.canvas.getContext('2d');
 	  this.pieces  = createPieces(this.context);
+	  this.pieces[Math.floor(Math.random()*this.pieces.length)].toggleState();
 	};
 
 	Game.prototype.init = function () {
@@ -68,14 +69,18 @@
 	  this.canvas.addEventListener("click", function(e) {
 	    var canvasLeft = game.canvas.offsetLeft;
 	    var canvasTop = game.canvas.offsetTop;
-	    var relLeft = e.pageX - canvasLeft;
-	    var relTop = e.pageY - canvasTop;
+	    var relLeft = (e.pageX - canvasLeft) - 40;
+	    var relTop = (e.pageY - canvasTop) - 40;
+	    var piece = game.locatePiece(relLeft, relTop).toggleState();
+	    game.findNeighbors();
+	    game.render();
+
 	    console.log("left ", canvasLeft, " top ", canvasTop)
 	    console.log("pleft ", e.pageX, " ptop ", e.pageY)
 	    console.log("rel left ", relLeft, " rel top ", relTop)
-	    // how do we find the appropriate piece located at
-	    // relLeft, relTop
 	    console.log(e);
+	    console.log(piece);
+	    console.log(piece.state);
 	  });
 	}
 
@@ -90,6 +95,21 @@
 	  });
 
 	  return foundPiece;
+	}
+
+	Game.prototype.findNeighbors = function(piece){
+
+	debugger;
+	  var neighbors = [];
+
+	  this.pieces.forEach(function(piece){
+	    if ((piece.centerX - 100 < x && x < piece.centerX + 100) &&
+	        (piece.centerY - 100 < y && y < piece.centerY + 100)) {
+	      neighbors.push(piece);
+	    }
+	  });
+
+	  return neighbors.forEach(toggleState);
 	}
 
 	Game.prototype.render = function() {
@@ -117,8 +137,8 @@
 	  this.context.stroke();
 	}
 
-	var Piece = function(coordinates){
-	  this.state = 'lit';
+	var Piece = function(coordinates, state){
+	  this.state = state || 'lit';
 	  this.x = coordinates['x'];
 	  this.y = coordinates['y'];
 	  this.centerX = this.x - 40;
@@ -127,7 +147,6 @@
 
 
 	Piece.prototype.toggleState = function(){
-	  debugger;
 	  if (this.state === 'lit'){
 	    return this.state = 'unlit';
 	  }

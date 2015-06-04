@@ -17,13 +17,14 @@ Game.prototype.bindClickHandler = function() {
     var canvasTop = game.canvas.offsetTop;
     var relLeft = (e.pageX - canvasLeft) - 40;
     var relTop = (e.pageY - canvasTop) - 40;
-    var piece = game.locatePiece(relLeft, relTop).toggleState();
+    var piece = game.locatePiece(relLeft, relTop)
+    piece.toggleState();
+    game.findNeighbors(piece);
     game.render();
 
     console.log("left ", canvasLeft, " top ", canvasTop)
     console.log("pleft ", e.pageX, " ptop ", e.pageY)
     console.log("rel left ", relLeft, " rel top ", relTop)
-
     console.log(e);
     console.log(piece);
     console.log(piece.state);
@@ -41,6 +42,22 @@ Game.prototype.locatePiece = function(x,y){
   });
 
   return foundPiece;
+}
+
+Game.prototype.findNeighbors = function(clickedPiece){
+  var neighbors = [];
+
+  this.pieces.forEach(function(piece){
+
+    if (((clickedPiece.x + 80 === piece.x || clickedPiece.x - 80 === piece.x) && clickedPiece.y === piece.y) ||
+        ((clickedPiece.y + 80 === piece.y || clickedPiece.y - 80 === piece.y) && clickedPiece.x === piece.x)) {
+      neighbors.push(piece);
+    }
+  });
+
+ neighbors.forEach(function(piece){
+  return piece.toggleState();
+ });
 }
 
 Game.prototype.render = function() {

@@ -31,6 +31,11 @@ describe('Game', function(){
       }
     }
 
+  xit('should change the state of neighboring pieces when clicked', function(){
+    var game = new Game('gameBoard');
+    var piece = game.pieces[0]
+  });
+
     chai.assert.equal(litPieces.length, 1)
   });
 
