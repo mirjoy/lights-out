@@ -25,14 +25,18 @@ Game.prototype.bindClickHandler = function() {
   });
 }
 
-Game.prototype.locatePiece = function(x,y) {
-// var y = mouseY - circleY;
-// var x = mouseX - circleX;
-// var dist = Math.sqrt(y*y + x*x);
+Game.prototype.locatePiece = function(x,y){
+  var foundPiece = null;
 
-// if (dist < circleRadius) {
-//   //go to google
-// }
+  this.pieces.forEach(function(piece){
+    if ((piece.centerX - 50 < x && x < piece.centerX + 50) &&
+        (piece.centerY - 50 < y && x < piece.centerY + 50)) {
+     debugger;
+      foundPiece = piece;
+    }
+  });
+
+  return foundPiece;
 }
 
 Game.prototype.render = function() {
@@ -43,17 +47,24 @@ Game.prototype.render = function() {
 }
 
 Game.prototype.renderPiece = function(piece) {
+  if (piece.state === 'lit') {
+    var fillColor = '#d3d3d3'
+  }
+  else {
+    var fillColor = '#000';
+  }
+
   this.context.beginPath();
-  this.context.fillStyle = '#000';
+  this.context.fillStyle = fillColor;
   this.context.arc(piece.x, piece.y, 30, 0, 2*Math.PI, false);
   this.context.fill();
   this.context.closePath();
 
-  // this.context.rect(piece.x,piece.y,80,80);
-  // this.context.stroke();
+  this.context.rect(piece.centerX, piece.centerY, 80, 80);
+  this.context.stroke();
 }
 
-var Piece = function(coordinates, context){
+var Piece = function(coordinates){
   this.state = 'lit';
   this.x = coordinates['x'];
   this.y = coordinates['y'];
@@ -75,10 +86,10 @@ var createPieces = function(context){
   var pieces = [];
 
   for (var i = 0; i < 5; i++) {
-    var x = 80 + (i * 80);
+    var y = 80 + (i * 80);
 
     for (var j = 0; j < 5; j++) {
-      var y = 80 + (j * 80);
+      var x = 80 + (j * 80);
       pieces.push(new Piece({ x: x, y: y }, context));
     }
   }
