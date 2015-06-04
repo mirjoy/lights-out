@@ -1,5 +1,11 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Ubuntu Mono', Arial, sans-serif;
   text-align: center;
+  padding-top: 30px;
+}
+
+h1 {
+  font-size: 48px;
+  padding-right: 40px;
 }
 
