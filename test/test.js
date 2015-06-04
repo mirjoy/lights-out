@@ -37,13 +37,36 @@ describe('Game', function(){
     chai.assert.equal(game.isWon(), false);
   });
 
-  it('should have 25 pieces', function(){
-
+  describe('#togglePieceState()', function(){
+     xit('should toggle a piece and each orthogonal piece', function(){
+       var game = new Game();
+       var pieces = []
+       //canvas stubbing here
+       for(var i = 0; i < 25; i++){
+         pieces.push(new Piece({state: 'lit', coordinates: [(1 + i % 5)]}));
+         //idk something about assigning coords
+       }
+     game.togglePieceState(pieces[7])
+       affectedPieces = [pieces[2], pieces[6], pieces[7], pieces[8], pieces[12]]
+       nonAffectedPieces = [pieces[1], pieces[5], pieces[15]]
+       for (var i = 0, len = affectedPieces.length; i < len; i++) {
+         chai.assert.equal('unlit', affectedPieces[i].state);
+       }
+     for (var i = 0, len = nonAffectedPieces.length; i < len; i++) {
+       chai.assert.equal('lit', nonAffectedPieces[i].state);
+      }
+      });
+    });
   });
-});
-// pieces need to be drawn
-// pieces need to know about neighbors???
-// game needs to toggle up to five squares at a time
-// if all pieces are unlit the game ends
-// test how long a user has been playing
-// test how many turns a player has taken
+
+  describe('#locatePiece', function(){
+   it('should know if it is clicked', function(){
+      var game = new Game('gameBoard');
+      var piece1 = game.pieces[0];
+      var piece2 = game.pieces[4];
+
+      chai.assert.equal(piece1, game.locatePiece(30, 30));
+      chai.assert.equal(piece2, game.locatePiece(400, 70));
+      chai.assert.isNull(game.locatePiece(900, 900), null);
+    });
+  });
