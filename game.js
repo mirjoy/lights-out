@@ -2,6 +2,7 @@ var Game = function(canvasId){
   this.canvas  = document.getElementById(canvasId);
   this.context = this.canvas.getContext('2d');
   this.pieces  = createPieces(this.context);
+  this.pieces[Math.floor(Math.random()*this.pieces.length)].toggleState();
 };
 
 Game.prototype.init = function () {
@@ -16,12 +17,17 @@ Game.prototype.bindClickHandler = function() {
     var canvasTop = game.canvas.offsetTop;
     var relLeft = e.pageX - canvasLeft;
     var relTop = e.pageY - canvasTop;
+    var piece = game.locatePiece(relLeft, relTop).toggleState();
+    game.render();
+
     console.log("left ", canvasLeft, " top ", canvasTop)
     console.log("pleft ", e.pageX, " ptop ", e.pageY)
     console.log("rel left ", relLeft, " rel top ", relTop)
     // how do we find the appropriate piece located at
     // relLeft, relTop
+
     console.log(e);
+    console.log(piece, piece.state);
   });
 }
 
