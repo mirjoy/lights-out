@@ -30,8 +30,7 @@ Game.prototype.locatePiece = function(x,y){
 
   this.pieces.forEach(function(piece){
     if ((piece.centerX - 50 < x && x < piece.centerX + 50) &&
-        (piece.centerY - 50 < y && x < piece.centerY + 50)) {
-     debugger;
+        (piece.centerY - 50 < y && y < piece.centerY + 50)) {
       foundPiece = piece;
     }
   });

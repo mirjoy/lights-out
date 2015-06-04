@@ -62,18 +62,11 @@ describe('Game', function(){
   describe('#locatePiece', function(){
    it('should know if it is clicked', function(){
       var game = new Game('gameBoard');
-
       var piece1 = game.pieces[0];
       var piece2 = game.pieces[4];
-      debugger;
+
       chai.assert.equal(piece1, game.locatePiece(30, 30));
-      chai.assert.equal(piece2, game.locatePiece(300, 80));
-      // chai.refute(game.locatePiece(90, 90));
+      chai.assert.equal(piece2, game.locatePiece(400, 70));
+      chai.assert.isNull(game.locatePiece(900, 900), null);
     });
   });
-// pieces need to be drawn
-// pieces need to know about neighbors???
-// game needs to toggle up to five squares at a time
-// if all pieces are unlit the game ends
-// test how long a user has been playing
-// test how many turns a player has taken
