@@ -2,6 +2,8 @@ var Game = function(canvasId){
   this.canvas  = document.getElementById(canvasId);
   this.context = this.canvas.getContext('2d');
   this.pieces  = createPieces(this.context);
+  this.numberOfPlays = 0
+  this.timer = 0
 };
 
 Game.prototype.init = function () {
@@ -32,10 +34,20 @@ Game.prototype.locatePiece = function(x,y){
     if ((piece.centerX - 50 < x && x < piece.centerX + 50) &&
         (piece.centerY - 50 < y && y < piece.centerY + 50)) {
       foundPiece = piece;
+      this.numberOfPlays++
     }
   });
 
   return foundPiece;
+}
+
+Game.prototype.isWon = function(){
+  var ended = true
+  this.pieces.forEach(function(piece){
+    if(piece.state === "lit")
+    ended = false
+  })
+  return ended
 }
 
 Game.prototype.render = function() {
@@ -65,8 +77,8 @@ Game.prototype.renderPiece = function(piece) {
 
 var Piece = function(coordinates){
   this.state = 'lit';
-  this.x = coordinates['x'];
-  this.y = coordinates['y'];
+  this.x = coordinates['x'] || null;
+  this.y = coordinates['y'] || null;
   this.centerX = this.x - 40;
   this.centerY = this.y - 40;
 }
