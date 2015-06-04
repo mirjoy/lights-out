@@ -3,8 +3,8 @@ var Game = function(canvasId){
   this.context = this.canvas.getContext('2d');
   this.pieces  = createPieces(this.context);
   this.numberOfPlays = 0
-  this.timer = 0
-  this.pieces[Math.floor(Math.random()*this.pieces.length)].toggleState();
+    this.timer = 0
+    this.pieces[Math.floor(Math.random()*this.pieces.length)].toggleState();
 };
 
 Game.prototype.init = function () {
@@ -21,8 +21,8 @@ Game.prototype.bindClickHandler = function() {
     var relTop = (e.pageY - canvasTop) - 40;
     var piece = game.locatePiece(relLeft, relTop)
     piece.toggleState();
-    game.findNeighbors(piece);
-    game.render();
+  game.findNeighbors(piece);
+  game.render();
   });
 }
 
@@ -31,7 +31,7 @@ Game.prototype.locatePiece = function(x,y){
 
   this.pieces.forEach(function(piece){
     if ((piece.centerX - 50 < x && x < piece.centerX + 50) &&
-        (piece.centerY - 50 < y && y < piece.centerY + 50)) {
+      (piece.centerY - 50 < y && y < piece.centerY + 50)) {
       foundPiece = piece;
       this.numberOfPlays++
     }
@@ -40,36 +40,35 @@ Game.prototype.locatePiece = function(x,y){
   return foundPiece;
 }
 
-<<<<<<< HEAD
 Game.prototype.isWon = function(){
   var ended = true
-  this.pieces.forEach(function(piece){
-    if(piece.state === "lit")
-    ended = false
-  })
+    this.pieces.forEach(function(piece){
+      if(piece.state === "lit")
+      ended = false
+    })
   return ended
-=======
+}
+
 Game.prototype.findNeighbors = function(clickedPiece){
   var neighbors = [];
 
   this.pieces.forEach(function(piece){
 
     if (((clickedPiece.x + 80 === piece.x || clickedPiece.x - 80 === piece.x) && clickedPiece.y === piece.y) ||
-        ((clickedPiece.y + 80 === piece.y || clickedPiece.y - 80 === piece.y) && clickedPiece.x === piece.x)) {
+      ((clickedPiece.y + 80 === piece.y || clickedPiece.y - 80 === piece.y) && clickedPiece.x === piece.x)) {
       neighbors.push(piece);
     }
   });
 
- neighbors.forEach(function(piece){
-  return piece.toggleState();
- });
->>>>>>> master
+  neighbors.forEach(function(piece){
+    return piece.toggleState();
+  });
 }
 
 Game.prototype.render = function() {
   var game = this;
   this.pieces.forEach(function(piece) {
-     game.renderPiece(piece);
+    game.renderPiece(piece);
   });
 }
 
@@ -91,17 +90,10 @@ Game.prototype.renderPiece = function(piece) {
   this.context.stroke();
 }
 
-<<<<<<< HEAD
-var Piece = function(coordinates){
-  this.state = 'lit';
-  this.x = coordinates['x'] || null;
-  this.y = coordinates['y'] || null;
-=======
 var Piece = function(coordinates, state){
   this.state = state || 'lit';
   this.x = coordinates['x'];
   this.y = coordinates['y'];
->>>>>>> master
   this.centerX = this.x - 40;
   this.centerY = this.y - 40;
 }
