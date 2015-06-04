@@ -1,13 +1,13 @@
 describe('Piece', function(){
   describe('#toggleState()', function(){
     it('should return change a lit piece to unlit', function(){
-      var piece1 = new Piece({state: 'lit'});
+      var piece1 = new Piece({x:1, y:1});
       piece1.toggleState();
       chai.assert.equal('unlit', piece1.state);
     });
 
     it('should return change an unlit piece to lit', function(){
-      var piece1 = new Piece({state: 'unlit'});
+      var piece1 = new Piece({x:1, y:1}, 'unlit');
       piece1.toggleState();
       chai.assert.equal('lit', piece1.state);
     });

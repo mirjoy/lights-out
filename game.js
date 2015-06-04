@@ -63,8 +63,8 @@ Game.prototype.renderPiece = function(piece) {
   this.context.stroke();
 }
 
-var Piece = function(coordinates){
-  this.state = 'lit';
+var Piece = function(coordinates, state){
+  this.state = state || 'lit';
   this.x = coordinates['x'];
   this.y = coordinates['y'];
   this.centerX = this.x - 40;
