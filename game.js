@@ -46,20 +46,38 @@ Game.prototype.isWon = function(){
   })
 }
 
+
 Game.prototype.findNeighbors = function(clickedPiece){
-  var neighbors = [];
-
-  this.pieces.forEach(function(piece){
-
-    if (((clickedPiece.x + 80 === piece.x || clickedPiece.x - 80 === piece.x) && clickedPiece.y === piece.y) ||
-      ((clickedPiece.y + 80 === piece.y || clickedPiece.y - 80 === piece.y) && clickedPiece.x === piece.x)) {
-      neighbors.push(piece);
-    }
-  });
+  game = this
+    var neighbors = this.pieces.filter(function(piece){
+      return game.areNeighbors(piece, clickedPiece)
+    });
 
   neighbors.forEach(function(piece){
     return piece.toggleState();
   });
+}
+
+Game.prototype.areNeighbors = function(anchorPiece, clickedPiece){
+  return this.verticleNeighbor(anchorPiece, clickedPiece) || this.horizontalNeighbor(anchorPiece, clickedPiece)
+}
+Game.prototype.verticleNeighbor = function(anchorPiece, clickedPiece){
+  return this.withinX(anchorPiece, clickedPiece) && this.sameY(anchorPiece, clickedPiece);
+}
+Game.prototype.horizontalNeighbor = function(anchorPiece, clickedPiece){
+  return this.withinY(anchorPiece, clickedPiece) && this.sameX(anchorPiece, clickedPiece)
+}
+Game.prototype.withinX = function(anchorPiece, clickedPiece){
+  return clickedPiece.x + 80 === anchorPiece.x || clickedPiece.x - 80 === anchorPiece.x
+}
+Game.prototype.withinY = function(anchorPiece, clickedPiece){
+  return clickedPiece.y + 80 === anchorPiece.y || clickedPiece.y - 80 === anchorPiece.y
+}
+Game.prototype.sameX = function(anchorPiece, clickedPiece){
+  return clickedPiece.x == anchorPiece.x
+}
+Game.prototype.sameY = function(anchorPiece, clickedPiece){
+  return clickedPiece.y == anchorPiece.y
 }
 
 Game.prototype.render = function() {
@@ -89,7 +107,7 @@ Game.prototype.renderPiece = function(piece) {
 
 var Piece = function(coordinates){
   this.isLit = false
-  this.x = coordinates['x'];
+    this.x = coordinates['x'];
   this.y = coordinates['y'];
   this.centerX = this.x - 40;
   this.centerY = this.y - 40;
