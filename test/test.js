@@ -68,6 +68,7 @@ describe('Game', function(){
     game2.pieces.forEach(function(piece){
       piece.state = "unlit";
     });
+
     chai.assert.equal(game.isWon(), false);
     chai.assert.equal(game2.isWon(), true);
   });

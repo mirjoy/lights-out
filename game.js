@@ -43,8 +43,9 @@ Game.prototype.locatePiece = function(x,y){
 Game.prototype.isWon = function(){
   var ended = true
     this.pieces.forEach(function(piece){
-      if(piece.state === "lit")
-      ended = false
+      if (piece.state === "lit"){
+        ended = false
+      }
     })
   return ended
 }
@@ -91,11 +92,12 @@ Game.prototype.renderPiece = function(piece) {
 }
 
 var Piece = function(coordinates, state){
+  var canvasOffset = 40;
   this.state = state || 'lit';
   this.x = coordinates['x'];
   this.y = coordinates['y'];
-  this.centerX = this.x - 40;
-  this.centerY = this.y - 40;
+  this.centerX = this.x - canvasOffset;
+  this.centerY = this.y - canvasOffset;
 }
 
 
