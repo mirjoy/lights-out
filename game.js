@@ -41,12 +41,9 @@ Game.prototype.locatePiece = function(x,y){
 }
 
 Game.prototype.isWon = function(){
-  var ended = true
-    this.pieces.forEach(function(piece){
-      if(piece.state === "lit")
-      ended = false
-    })
-  return ended
+  return this.pieces.every(function(piece){
+    return piece.state === "unlit"
+  })
 }
 
 Game.prototype.findNeighbors = function(clickedPiece){
