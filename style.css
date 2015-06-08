@@ -1,5 +1,17 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Ubuntu Mono', Arial, sans-serif;
   text-align: center;
+  padding-top: 30px;
+  background-image: url('./background.jpg');
+}
+
+canvas {
+  background-color: #fff;
+  opacity: 0.45;
+}
+
+h1 {
+  font-size: 56px;
+  color: #fff;
 }
 

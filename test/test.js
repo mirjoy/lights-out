@@ -71,6 +71,7 @@ describe('Game', function(){
     game2.pieces.forEach(function(piece){
       piece.isLit = false;
     });
+
     chai.assert.equal(game.isWon(), false);
     chai.assert.equal(game2.isWon(), true);
   });
@@ -81,7 +82,7 @@ describe('Game', function(){
        var pieces = []
        //canvas stubbing here
        for(var i = 0; i < 25; i++){
-         pieces.push(new Piece({state: 'lit', coordinates: [(1 + i % 5)]}));
+         pieces.push(new Piece({isLit: true, coordinates: [(1 + i % 5)]}));
          //idk something about assigning coords
        }
      game.togglePieceState(pieces[7])
