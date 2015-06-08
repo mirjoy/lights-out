@@ -3,19 +3,19 @@ describe('Piece', function(){
     it('should return change a lit piece to unlit', function(){
       var piece1 = new Piece({x:1, y:1});
       piece1.toggleState();
-      chai.assert.equal('unlit', piece1.state);
+      chai.assert.equal(false, piece1.isLit);
     });
 
     it('should return change an unlit piece to lit', function(){
       var piece1 = new Piece({x:1, y:1}, 'unlit');
       piece1.toggleState();
-      chai.assert.equal('lit', piece1.state);
+      chai.assert.equal(true, piece1.isLit);
     });
 
     xit('should change state when clicked', function(){
       var piece1 = new Piece({x:1, y:1}, 'unlit');
       piece1.trigger('click');
-      chai.assert.equal('lit', piece1.state);
+      chai.assert.equal(true, piece1.isLit);
     });
   });
 });
@@ -26,7 +26,7 @@ describe('Game', function(){
     var litPieces = []
     game.pieces.forEach(findLitPieces);
     function findLitPieces(piece){
-      if (piece.state === 'lit') {
+      if (piece.isLit) {
         litPieces.push(piece);
       }
     }
@@ -66,7 +66,7 @@ describe('Game', function(){
     var game = new Game('gameBoard')
     var game2 = new Game('gameBoard');
     game2.pieces.forEach(function(piece){
-      piece.state = "unlit";
+      piece.isLit = false;
     });
 
     chai.assert.equal(game.isWon(), false);
@@ -79,7 +79,7 @@ describe('Game', function(){
        var pieces = []
        //canvas stubbing here
        for(var i = 0; i < 25; i++){
-         pieces.push(new Piece({state: 'lit', coordinates: [(1 + i % 5)]}));
+         pieces.push(new Piece({isLit: true, coordinates: [(1 + i % 5)]}));
          //idk something about assigning coords
        }
      game.togglePieceState(pieces[7])

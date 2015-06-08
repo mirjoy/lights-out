@@ -2,48 +2,43 @@ var Game = function(canvasId){
   this.canvas  = document.getElementById(canvasId);
   this.context = this.canvas.getContext('2d');
   this.pieces  = createPieces(this.context);
-  this.numberOfPlays = 0
-    this.timer = 0
-    this.pieces[Math.floor(Math.random()*this.pieces.length)].toggleState();
+  this.numberOfPlays = 0;
+  this.timer = 0;
 };
 
-Game.prototype.init = function () {
+Game.prototype.init = function (){
   this.bindClickHandler();
   this.render();
 }
 
-Game.prototype.bindClickHandler = function() {
+Game.prototype.bindClickHandler = function(){
   var game = this;
   this.canvas.addEventListener("click", function(e) {
     var canvasLeft = game.canvas.offsetLeft;
     var canvasTop = game.canvas.offsetTop;
     var relLeft = (e.pageX - canvasLeft) - 40;
     var relTop = (e.pageY - canvasTop) - 40;
-    var piece = game.locatePiece(relLeft, relTop)
+    var piece = game.locatePiece(relLeft, relTop);
+    debugger;
     piece.toggleState();
-  game.findNeighbors(piece);
-  game.render();
+    game.findNeighbors(piece);
+    game.render();
   });
 }
 
 Game.prototype.locatePiece = function(x,y){
-  var foundPiece = null;
-
-  this.pieces.forEach(function(piece){
-    if ((piece.centerX - 50 < x && x < piece.centerX + 50) &&
-      (piece.centerY - 50 < y && y < piece.centerY + 50)) {
-      foundPiece = piece;
-      this.numberOfPlays++
-    }
-  });
-
-  return foundPiece;
+   return this.pieces.filter(function(piece){
+   if ((piece.centerX - 50 < x && x < piece.centerX + 50) &&
+      (piece.centerY - 50 < y && y < piece.centerY + 50)){
+    return piece;
+   }
+  }).pop();
 }
 
 Game.prototype.isWon = function(){
   var ended = true
     this.pieces.forEach(function(piece){
-      if (piece.state === "lit"){
+      if (piece.isLit){
         ended = false
       }
     })
@@ -74,7 +69,7 @@ Game.prototype.render = function() {
 }
 
 Game.prototype.renderPiece = function(piece) {
-  if (piece.state === 'lit') {
+  if (piece.isLit) {
     var fillColor = '#d3d3d3'
   }
   else {
@@ -91,9 +86,9 @@ Game.prototype.renderPiece = function(piece) {
   this.context.stroke();
 }
 
-var Piece = function(coordinates, state){
+var Piece = function(coordinates){
   var canvasOffset = 40;
-  this.state = state || 'lit';
+  this.isLit = false;
   this.x = coordinates['x'];
   this.y = coordinates['y'];
   this.centerX = this.x - canvasOffset;
@@ -102,11 +97,11 @@ var Piece = function(coordinates, state){
 
 
 Piece.prototype.toggleState = function(){
-  if (this.state === 'lit'){
-    return this.state = 'unlit';
+  if (this.isLit){
+    return this.isLit = false;
   }
   else {
-    return this.state = 'lit';
+    return this.isLit = true;
   }
 }
 
@@ -122,8 +117,24 @@ var createPieces = function(context){
     }
   }
 
+  setInitialLitPieces(pieces);
+
   return pieces;
 };
+
+function shuffle(o){
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+}
+
+var newGameBoard = [[7,11,12,13,17], [0,1,2,6], [13,17,18,19,23], [15,20,21],
+                    [7,11,12,13,17, 0,1,2,6], [2,7,8,10,11,13,16,17,18,19,23]];
+
+var setInitialLitPieces = function(pieces){
+  shuffle(newGameBoard).pop().forEach(function(pieceIndex){
+    pieces[pieceIndex].toggleState();
+  });
+}
 
 window.onload = function(){
   var game = new Game("gameBoard");
