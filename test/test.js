@@ -2,20 +2,22 @@ describe('Piece', function(){
   describe('#toggleState()', function(){
     it('should return change a lit piece to unlit', function(){
       var piece1 = new Piece({x:1, y:1});
+      piece1.isLit = true
       piece1.toggleState();
-      chai.assert.equal('unlit', piece1.state);
+      chai.assert.equal(false, piece1.isLit);
     });
 
     it('should return change an unlit piece to lit', function(){
-      var piece1 = new Piece({x:1, y:1}, 'unlit');
+      var piece1 = new Piece({x:1, y:1});
       piece1.toggleState();
-      chai.assert.equal('lit', piece1.state);
+      chai.assert.equal(true, piece1.isLit);
     });
 
     xit('should change state when clicked', function(){
-      var piece1 = new Piece({x:1, y:1}, 'unlit');
-      piece1.trigger('click');
-      chai.assert.equal('lit', piece1.state);
+      var piece1 = new Piece({x:1, y:1});
+      piece1.isLit = false
+      piece1.click();
+      chai.assert.equal(true, piece1.isLit);
     });
   });
 });
@@ -26,7 +28,7 @@ describe('Game', function(){
     var litPieces = []
     game.pieces.forEach(findLitPieces);
     function findLitPieces(piece){
-      if (piece.state === 'lit') {
+      if (piece.isLit) {
         litPieces.push(piece);
       }
     }
@@ -39,9 +41,10 @@ describe('Game', function(){
     chai.assert.equal(litPieces.length, 1)
   });
 
-  it('should know related pieces', function(){
-    var piece1 = new Piece();
-    chai.assert.equal(piece1.findNeighbors.length, 3);
+  xit('should know related pieces', function(){
+    var game = new Game('gameBoard');
+    var piece1 = game.pieces[0]
+    chai.assert.equal(game.findNeighbors(piece1).length, 2);
   });
 
   it('should know how many turns have been played', function(){
@@ -66,7 +69,7 @@ describe('Game', function(){
     var game = new Game('gameBoard')
     var game2 = new Game('gameBoard');
     game2.pieces.forEach(function(piece){
-      piece.state = "unlit";
+      piece.isLit = false;
     });
     chai.assert.equal(game.isWon(), false);
     chai.assert.equal(game2.isWon(), true);

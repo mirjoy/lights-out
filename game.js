@@ -42,7 +42,7 @@ Game.prototype.locatePiece = function(x,y){
 
 Game.prototype.isWon = function(){
   return this.pieces.every(function(piece){
-    return piece.state === "unlit"
+    return !piece.isLit
   })
 }
 
@@ -70,7 +70,7 @@ Game.prototype.render = function() {
 }
 
 Game.prototype.renderPiece = function(piece) {
-  if (piece.state === 'lit') {
+  if (piece.isLit) {
     var fillColor = '#d3d3d3'
   }
   else {
@@ -87,8 +87,8 @@ Game.prototype.renderPiece = function(piece) {
   this.context.stroke();
 }
 
-var Piece = function(coordinates, state){
-  this.state = state || 'lit';
+var Piece = function(coordinates){
+  this.isLit = false
   this.x = coordinates['x'];
   this.y = coordinates['y'];
   this.centerX = this.x - 40;
@@ -97,11 +97,11 @@ var Piece = function(coordinates, state){
 
 
 Piece.prototype.toggleState = function(){
-  if (this.state === 'lit'){
-    return this.state = 'unlit';
+  if (this.isLit){
+    return this.isLit = false;
   }
   else {
-    return this.state = 'lit';
+    return this.isLit = true;
   }
 }
 
