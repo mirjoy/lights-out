@@ -44,10 +44,12 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
+	(function webpackMissingModule() { throw new Error("Cannot find module \"/Users/djgreenfield/Documents/turing/module_4/projects/lights-out/game.js\""); }());
 	(function webpackMissingModule() { throw new Error("Cannot find module \"bundle.js\""); }());
 
 
+<<<<<<< HEAD
+=======
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -196,5 +198,6 @@
 	};
 
 
+>>>>>>> master
 /***/ }
 /******/ ]);
